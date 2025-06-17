@@ -17,7 +17,7 @@ st.set_page_config(
 
 # Try to import from main_new6 with error handling
 try:
-    from main_new6 import (
+    from main6 import (
         process_message,
         process_uploaded_pdf,
         get_or_create_session,
@@ -215,19 +215,7 @@ def enhanced_sidebar():
         
         st.markdown('</div>', unsafe_allow_html=True)
         
-        # Session Information
-        st.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
-        st.markdown("### 👤 Session Info")
         
-        session_duration = datetime.now() - st.session_state.session_start_time
-        st.markdown(f"""
-        **Session ID:** `{st.session_state.user_id[-8:]}`  
-        **Duration:** {str(session_duration).split('.')[0]}  
-        **Queries:** {st.session_state.total_queries}  
-        **Files:** {len(st.session_state.uploaded_files)}  
-        """)
-        
-        st.markdown('</div>', unsafe_allow_html=True)
         
         # Navigation
         st.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
@@ -250,15 +238,17 @@ def enhanced_sidebar():
             st.session_state.chat_history = []
             st.success("Chat history cleared!")
         
-        if st.button("📊 System Info", use_container_width=True):
-            st.session_state.show_system_info = True
         
         st.markdown('</div>', unsafe_allow_html=True)
         
         # Footer
-        st.markdown("---")
-        st.markdown("**Version:** 2.0.0")
-        st.markdown("**Status:** " + ("🟢 Online" if IMPORTS_SUCCESSFUL else "🔴 Offline"))
+        st.markdown(
+        """<hr style="margin-top: 50px;"/>
+        <div style="text-align: center; color: gray; font-size: 0.9em;">
+            © 2025 InfoObjects Inc Software Pvt Ltd
+        </div>""",
+        unsafe_allow_html=True
+        )
         
         return page
 
@@ -795,14 +785,11 @@ def main():
     elif selected_page == "📊 Dashboard":
         dashboard_interface()
     
-    # Footer
-    st.markdown("---")
     st.markdown(
-        f"<div style='text-align: center; color: #666; font-size: 0.8rem;'>"
-        f"🏥 Advanced Insurance Policy Advisor v2.0 | "
-        f"Session: {st.session_state.user_id[-8:]} | "
-        f"Status: {'🟢 Online' if IMPORTS_SUCCESSFUL else '🔴 Offline'}"
-        f"</div>", 
+        """<hr style="margin-top: 50px;"/>
+        <div style="text-align: center; color: gray; font-size: 0.9em;">
+            © 2025 InfoObjects Inc Software Pvt Ltd
+        </div>""",
         unsafe_allow_html=True
     )
 
