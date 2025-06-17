@@ -52,6 +52,8 @@ except ImportError:
     print("\n:warning: OCR dependencies not available. Only direct text extraction will be used.")
     print("To enable OCR capabilities, install: pip install pytesseract pdf2image")
     print("And ensure tesseract-ocr and poppler-utils are installed on your system.")
+    
+    
 
 # === INTEGRATED: Smart Underwriting Agents ===
 import asyncio
