@@ -50,6 +50,43 @@ except Exception as e:
 # Custom CSS for better styling
 st.markdown("""
 <style>
+
+.st-emotion-cache-16tyu1 {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 1rem;
+    margin-bottom: -1rem;
+    color: inherit;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.st-emotion-cache-5xs5sy {
+    width: 350px;
+    max-width: 90vw;
+    margin: 0 auto;
+    flex: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 10px;
+    background: #e6f0fa;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-size: 1rem;
+    line-height: 1.3;
+    height: fit-content;
+}
+
+/* Hide the Deploy button and three dots menu in Streamlit cloud */
+[data-testid="stDecoration"] { display: none !important; }
+button[title="View app"], button[aria-label="Share"], .stDeployButton { display: none !important; }
+header .stDeployButton { display: none !important; }
+header [data-testid="stHeader"] { background: transparent; }
+/* Optionally, hide main header if needed */
+header { visibility: hidden; }
+/* You can also hide all Streamlit menus */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+
+
     .stApp {
         background-color: #f8f9fa;
     }
@@ -190,6 +227,7 @@ def check_system_status():
 def enhanced_sidebar():
     """Enhanced sidebar with system information"""
     with st.sidebar:
+        st.image("assets/infologo.png", width=100)
         st.markdown('<div class="main-header"><h2>🏥 Insurance Advisor</h2></div>', unsafe_allow_html=True)
         
         # System Status
@@ -221,7 +259,7 @@ def enhanced_sidebar():
         st.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
         st.markdown("### 🧭 Navigation")
         
-        pages = ["💬 Chat", "🎯 Smart Underwriting", "📄 Upload Policy", "📊 Dashboard"]
+        pages = ["💬 Chat", "🎯 Smart Underwriting", "📄 Upload Policy"]
         page = st.radio("Select Page:", pages, label_visibility="collapsed")
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -292,7 +330,7 @@ def chat_interface():
             st.info("👋 Welcome! Start a conversation by typing a message below.")
             
             # Quick start suggestions
-            st.markdown("### 💡 Try asking:")
+            st.mark down("### 💡 Try asking:")
             suggestions = [
                 "What health insurance policies do you offer?",
                 "Compare term life vs whole life insurance",
@@ -541,7 +579,7 @@ def display_underwriting_results(result):
 # File upload interface
 def upload_interface():
     """File upload interface"""
-    st.markdown('<div class="main-header"><h1>📄 Upload Insurance Policies</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header"><h3>📄 Upload Insurance Policies or User Docs(eg. Salary Slip) </h3></div>', unsafe_allow_html=True)
     
     if not IMPORTS_SUCCESSFUL:
         st.error("❌ File upload system is not available due to import errors")
@@ -629,125 +667,6 @@ def upload_interface():
                     st.write(f"**Processing Time:** {file_info.get('processing_time', 0):.2f}s")
 
 # Dashboard interface
-def dashboard_interface():
-    """Dashboard interface"""
-    st.markdown('<div class="main-header"><h1>📊 System Dashboard</h1></div>', unsafe_allow_html=True)
-    
-    # System overview
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-        st.metric("System Status", "🟢 Online" if IMPORTS_SUCCESSFUL else "🔴 Offline")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-        st.metric("Session Duration", str(datetime.now() - st.session_state.session_start_time).split('.')[0])
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-        st.metric("Total Queries", st.session_state.total_queries)
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with col4:
-        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-        st.metric("Files Processed", len(st.session_state.uploaded_files))
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Detailed information
-    tab1, tab2, tab3 = st.tabs(["🔧 System Info", "📊 Statistics", "🔍 Debug Info"])
-    
-    with tab1:
-        st.markdown("### 🔧 System Information")
-        
-        if IMPORTS_SUCCESSFUL:
-            st.success("✅ All system components loaded successfully")
-            
-            st.markdown("#### 📚 Available Policies")
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                st.write(f"**Standard Policies:** {len(policy_list)}")
-                if policy_list:
-                    with st.expander("View Standard Policies"):
-                        for policy in policy_list[:5]:  # Show first 5
-                            st.write(f"• {policy.get('policy_name', 'Unknown')}")
-            
-            with col2:
-                st.write(f"**Uploaded Policies:** {len(uploaded_policy_list)}")
-                if uploaded_policy_list:
-                    with st.expander("View Uploaded Policies"):
-                        for policy in uploaded_policy_list[:5]:  # Show first 5
-                            st.write(f"• {policy.get('policy_name', 'Unknown')}")
-            
-            st.markdown("#### 🤖 Smart Underwriting")
-            if SMART_UNDERWRITING_AVAILABLE and smart_underwriting_system:
-                st.success("✅ Smart Underwriting System is active")
-                try:
-                    agent_status = get_agent_status()
-                    st.write(f"**Version:** {agent_status.get('version', 'Unknown')}")
-                    st.write(f"**Status:** {agent_status.get('status', 'Unknown')}")
-                except:
-                    st.write("**Status:** Active (details unavailable)")
-            else:
-                st.warning("⚠️ Smart Underwriting System is not available")
-        else:
-            st.error("❌ System components failed to load")
-            st.code(f"Import Error: {IMPORT_ERROR}")
-    
-    with tab2:
-        st.markdown("### 📊 Usage Statistics")
-        
-        if st.session_state.chat_history:
-            st.write(f"**Total Messages:** {len(st.session_state.chat_history)}")
-            
-            # Message type breakdown
-            user_messages = sum(1 for msg in st.session_state.chat_history if msg['role'] == 'user')
-            assistant_messages = sum(1 for msg in st.session_state.chat_history if msg['role'] == 'assistant')
-            
-            st.write(f"**User Messages:** {user_messages}")
-            st.write(f"**Assistant Responses:** {assistant_messages}")
-        
-        if st.session_state.underwriting_results:
-            st.write(f"**Underwriting Requests:** {len(st.session_state.underwriting_results)}")
-            
-            # Decision breakdown
-            decisions = [r['underwriting_decision']['decision'] for r in st.session_state.underwriting_results]
-            approved = decisions.count('APPROVED')
-            declined = decisions.count('DECLINED')
-            manual_review = decisions.count('MANUAL_REVIEW')
-            
-            st.write(f"**Approved:** {approved}")
-            st.write(f"**Declined:** {declined}")
-            st.write(f"**Manual Review:** {manual_review}")
-    
-    with tab3:
-        st.markdown("### 🔍 Debug Information")
-        
-        st.markdown("#### 🐍 Python Environment")
-        st.code(f"""
-System Status: {'OK' if IMPORTS_SUCCESSFUL else 'ERROR'}
-Import Error: {IMPORT_ERROR if IMPORT_ERROR else 'None'}
-Session ID: {st.session_state.user_id}
-Start Time: {st.session_state.session_start_time}
-        """)
-        
-        st.markdown("#### 📁 Directory Status")
-        directories = [PDF_FOLDER, UPLOADS_DIR]
-        for directory in directories:
-            exists = os.path.exists(directory)
-            st.write(f"**{directory}:** {'✅ Exists' if exists else '❌ Missing'}")
-            if exists:
-                try:
-                    file_count = len([f for f in os.listdir(directory) if f.endswith('.pdf')])
-                    st.write(f"  └── PDF Files: {file_count}")
-                except:
-                    st.write(f"  └── Cannot read directory")
-        
-        if st.button("🔄 Refresh Debug Info"):
-            st.rerun()
 
 # Main application
 def main():
@@ -782,8 +701,7 @@ def main():
         smart_underwriting_interface()
     elif selected_page == "📄 Upload Policy":
         upload_interface()
-    elif selected_page == "📊 Dashboard":
-        dashboard_interface()
+    
     
     st.markdown(
         """<hr style="margin-top: 50px;"/>
