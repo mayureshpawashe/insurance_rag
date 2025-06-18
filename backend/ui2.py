@@ -15,7 +15,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Try to import from main_new6 with error handling
+# Try to import from main6 with error handling
 try:
     from main6 import (
         process_message,
@@ -330,12 +330,12 @@ def chat_interface():
             st.info("👋 Welcome! Start a conversation by typing a message below.")
             
             # Quick start suggestions
-            st.mark down("### 💡 Try asking:")
+            st.markdown("### 💡 Try asking:")
             suggestions = [
                 "What health insurance policies do you offer?",
-                "Compare term life vs whole life insurance",
+                "Compare icici pru sukh samruddhi vs icici future perfect insurance",
                 "I need insurance for a family of 4",
-                "What are the benefits of ICICI policies?"
+                "What are the benefits of ICICI policies compare to SBI policies?"
             ]
             
             col1, col2 = st.columns(2)
