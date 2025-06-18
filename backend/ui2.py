@@ -226,12 +226,17 @@ def check_system_status():
 # Enhanced sidebar
 def enhanced_sidebar():
     """Enhanced sidebar with system information"""
+   
+    left, right = st.columns([10, 1]) 
+    with right:
+        st.image("assets/infologo.png", width=120)
     with st.sidebar:
-        st.image("assets/infologo.png", width=100)
+        
+        
         st.markdown('<div class="main-header"><h2>🏥 Insurance Advisor</h2></div>', unsafe_allow_html=True)
         
         # System Status
-        st.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px solid #000;'>", unsafe_allow_html=True)
         st.markdown("### 🔧 System Status")
         
         if IMPORTS_SUCCESSFUL:
@@ -256,7 +261,7 @@ def enhanced_sidebar():
         
         
         # Navigation
-        st.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px solid #000;'>", unsafe_allow_html=True)
         st.markdown("### 🧭 Navigation")
         
         pages = ["💬 Chat", "🎯 Smart Underwriting", "📄 Upload Policy"]
@@ -265,12 +270,8 @@ def enhanced_sidebar():
         st.markdown('</div>', unsafe_allow_html=True)
         
         # Quick Actions
-        st.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
+        st.markdown("<hr style='border: 1px solid #000;'>", unsafe_allow_html=True)
         st.markdown("### ⚡ Quick Actions")
-        
-        if st.button("🔄 Refresh System", use_container_width=True):
-            st.session_state.system_status_checked = False
-            st.rerun()
         
         if st.button("🧹 Clear Chat", use_container_width=True):
             st.session_state.chat_history = []
@@ -288,7 +289,10 @@ def enhanced_sidebar():
         unsafe_allow_html=True
         )
         
+        
         return page
+    
+    
 
 # Chat interface
 def chat_interface():
@@ -311,7 +315,7 @@ def chat_interface():
             st.success("💾 Chat saved locally!")
     
     with col3:
-        if st.button("🧹 Clear All"):
+        if st.button("🔄 Refresh System"):
             st.session_state.chat_history = []
             st.rerun()
     
@@ -505,6 +509,20 @@ def smart_underwriting_interface():
                     st.error(f"❌ Underwriting error: {str(e)}")
                     with st.expander("🔍 Error Details"):
                         st.code(traceback.format_exc())
+                        
+    # Initialize the toggle once in session state
+    if 'show_underwriting_history' not in st.session_state:
+        st.session_state['show_underwriting_history'] = False
+
+    if st.session_state['underwriting_results']:
+        if st.button("🕑 Show/Hide Underwriting History"):
+            st.session_state['show_underwriting_history'] = not st.session_state['show_underwriting_history']
+
+        if st.session_state['show_underwriting_history']:
+            for i, result in enumerate(reversed(st.session_state['underwriting_results']), 1):
+                st.markdown(f"### Attempt {len(st.session_state['underwriting_results']) - i + 1}")
+                display_underwriting_results(result)
+    
 
 def display_underwriting_results(result):
     """Display underwriting results"""
