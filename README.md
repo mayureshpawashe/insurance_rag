@@ -64,10 +64,31 @@ Insurance RAG is a comprehensive AI-powered system that helps users:
    ```
 
 3. **Set up environment variables**
+   
+   **Option 1: Using .env file (Recommended)**
+   
    Create a `.env` file in the backend directory:
    ```env
    OPENAI_API_KEY=your_openai_api_key_here
    GOOGLE_API_KEY=your_google_api_key_here
+   ```
+
+   **Option 2: Using PowerShell (Windows)**
+   ```powershell
+   $env:OPENAI_API_KEY="your_openai_api_key_here"
+   $env:GOOGLE_API_KEY="your_google_api_key_here"
+   ```
+
+   **Option 3: Using Command Prompt (Windows)**
+   ```cmd
+   set OPENAI_API_KEY=your_openai_api_key_here
+   set GOOGLE_API_KEY=your_google_api_key_here
+   ```
+
+   **Option 4: Using Terminal (Linux/macOS)**
+   ```bash
+   export OPENAI_API_KEY="your_openai_api_key_here"
+   export GOOGLE_API_KEY="your_google_api_key_here"
    ```
 
 4. **Install additional system dependencies (for OCR)**
