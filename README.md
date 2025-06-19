@@ -31,7 +31,7 @@ Insurance RAG is a comprehensive AI-powered system that helps users:
 
 ## 🛠️ Technology Stack
 
-- **Backend**: Python, FastAPI, Streamlit
+- **Backend**: Python, Streamlit
 - **AI/ML**: 
   - LangChain for RAG implementation
   - OpenAI GPT models for language processing
