@@ -86,7 +86,7 @@ Insurance RAG is a comprehensive AI-powered system that helps users:
 1. **Start the Streamlit web interface**
    ```bash
    cd backend
-   streamlit run ui2.py
+   streamlit run ui.py
    ```
 
 2. **Access the application**
@@ -117,7 +117,7 @@ insurance_rag/
 │   ├── icici_policies/            # Default policy documents
 │   ├── uploaded_policies/         # User-uploaded documents
 │   ├── main6.py                   # Core RAG implementation
-│   ├── ui2.py                     # Streamlit web interface
+│   ├── ui.py                     # Streamlit web interface
 │   ├── requirements.txt           # Python dependencies
 │   ├── prompts.txt               # Sample queries
 │   ├── policy_list.json          # Default policy metadata
@@ -169,17 +169,7 @@ The system can handle various types of insurance queries:
 - Automatic document chunking and indexing
 - Semantic search capabilities
 
-## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source. Please check the repository for specific license terms.
 
 ## 🆘 Support
 
