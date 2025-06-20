@@ -31,12 +31,11 @@ Insurance RAG is a comprehensive AI-powered system that helps users:
 
 ## 🛠️ Technology Stack
 
-- **Backend**: Python, Streamlit
+- **Programming Language**: Python, Streamlit
 - **AI/ML**: 
   - LangChain for RAG implementation
   - OpenAI GPT models for language processing
   - ChromaDB for vector storage
-  - Google Generative AI integration
 - **Document Processing**: 
   - PyMuPDF for PDF processing
   - PyPDF2 for text extraction
@@ -47,7 +46,6 @@ Insurance RAG is a comprehensive AI-powered system that helps users:
 
 - Python 3.8+
 - OpenAI API key
-- Google AI API key (optional)
 
 ## 🔧 Installation
 
@@ -59,7 +57,6 @@ Insurance RAG is a comprehensive AI-powered system that helps users:
 
 2. **Install dependencies**
    ```bash
-   cd backend
    pip install -r requirements.txt
    ```
 
@@ -106,7 +103,6 @@ Insurance RAG is a comprehensive AI-powered system that helps users:
 
 1. **Start the Streamlit web interface**
    ```bash
-   cd backend
    streamlit run ui.py
    ```
 
@@ -128,7 +124,6 @@ Insurance RAG is a comprehensive AI-powered system that helps users:
 
 ```
 insurance_rag/
-├── backend/
 │   ├── agents/                    # Multi-agent underwriting system
 │   │   ├── __init__.py
 │   │   ├── agent1_historical_patterns.py
@@ -136,13 +131,13 @@ insurance_rag/
 │   │   ├── agent3_policy_generation.py
 │   │   └── orchestrator.py
 │   ├── icici_policies/            # Default policy documents
-│   ├── uploaded_policies/         # User-uploaded documents
-│   ├── main6.py                   # Core RAG implementation
+│   ├── uploaded_policies/         # User-uploaded documents (will create automatically)
+│   ├── main.py                   # Core RAG implementation
 │   ├── ui.py                     # Streamlit web interface
 │   ├── requirements.txt           # Python dependencies
 │   ├── prompts.txt               # Sample queries
-│   ├── policy_list.json          # Default policy metadata
-│   └── uploaded_policy_list.json # Uploaded policy metadata
+│   ├── policy_list.json          # Default policy metadata (will create automatically)
+│   └── uploaded_policy_list.json # Uploaded policy metadata (will create automatically)
 └── README.md
 ```
 
@@ -181,7 +176,7 @@ The system can handle various types of insurance queries:
 ## 🔧 Configuration
 
 ### Policy Documents
-- Default policies are stored in `backend/icici_policies/`
+- Default policies are stored in `/icici_policies/`
 - Upload custom policies through the web interface
 - Supported formats: PDF
 
@@ -197,7 +192,6 @@ The system can handle various types of insurance queries:
 For support and questions:
 - Create an issue in the GitHub repository
 - Check the documentation in the code files
-- Review sample queries in `prompts.txt`
 
 ## 🎯 Future Enhancements
 
@@ -210,4 +204,4 @@ For support and questions:
 
 ---
 
-**Built with ❤️ using Python, LangChain, and AI**
+**Built with using Python, LangChain, and Gen AI**
