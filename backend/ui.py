@@ -6,6 +6,7 @@ import time
 import traceback
 from datetime import datetime
 from typing import Dict, List, Any, Optional
+import base64
 
 # Set page config first (must be the first Streamlit command)
 st.set_page_config(
@@ -15,6 +16,24 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+
+# Fixed logo in top-right corner
+import base64
+
+def get_base64_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+# Get base64 string of your logo
+try:
+    logo_base64 = get_base64_image("assets/logo.png")
+    st.markdown(f"""
+    <div class="logo-container">
+        <img src="data:image/png;base64,{logo_base64}" alt="InfoObjects Logo">
+    </div>
+    """, unsafe_allow_html=True)
+except FileNotFoundError:
+    st.error("Logo file not found at assets/logo.png")
 # Try to import from main6 with error handling
 try:
     from main6 import (
@@ -50,6 +69,22 @@ except Exception as e:
 # Custom CSS for better styling
 st.markdown("""
 <style>
+
+.logo-container {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo-container img {
+    width: 50px;
+    height: auto;
+}
 
 .st-emotion-cache-16tyu1 {
     font-family: "Source Sans Pro", sans-serif;
@@ -227,9 +262,9 @@ def check_system_status():
 def enhanced_sidebar():
     """Enhanced sidebar with system information"""
    
-    left, right = st.columns([10, 1]) 
-    with right:
-        st.image("assets/infologo.png", width=120)
+    # left, right = st.columns([10, 1]) 
+    # with right:
+    #     st.image("assets/logo.png", width=120)
     with st.sidebar:
         
         
